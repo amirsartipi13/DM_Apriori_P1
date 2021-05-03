@@ -14,9 +14,7 @@ class Arules:
         print("TOTAL ", self.total_item)
         self.minsup_count = self.minsup * self.total_item
     
-    def get_frequent_item_sets(self, transactions, min_support, min_confidence):
-        pass
-    def apriori(self):
+    def get_frequent_item_sets(self):
         sql_result = self.sql_manager.crs.execute(
             "select  description,count(description) from transactions group by description having count(description) > " + str(self.minsup_count)).fetchall()
 
@@ -43,7 +41,6 @@ class Arules:
                     L[k].append(C)
 
             k += 1
-
         return L
     def apriori_gen(self, l, k):
         CK = []
@@ -79,22 +76,18 @@ class Arules:
         else:
             return True
 
-    def get_arules(self,min_support=None, min_confidence=None, min_lift=None, sort_by='lift'):
-        pass
 if __name__ == '__main__':
-    # minsups = (0.1, 0.2, 0.3, 0.4, 0.05, 0.01)
-    minsups = (0.005,)
+    minsups = (0.1, 0.2, 0.3, 0.4, 0.05, 0.01, 0.005)
+    # try algorithm for find diferent min suport
     for minsup in minsups:
         excel_manager.create_sheet(excel_name="apriori", sheet_name=str(minsup), columns_name=[], base_address="out\\")
         start_time = time.time()
-        apriory = Arules("information.sqlit3", minsup)
-        large_items = apriory.apriori()
+        arules = Arules("information.sqlite3", minsup)
+        large_items = arules.get_frequent_item_sets()
         excel_manager.add_rows(excel_name="apriori", sheet_name=str(minsup), base_address="out\\",
-                              datas=[["minsup", str(minsup)], ["time", str(time.time() - start_time)]])
+                              datas=[["minsup", str(minsup)], ["time", str((time.time() - start_time)/60)]])
 
-        print(large_items)
-        for k, LK in enumerate(large_items):
-            if len(LK) != 0:
-                excel_manager.add_rows(excel_name="apriori", sheet_name=str(minsup), base_address="out\\", datas=LK)
+
+        excel_manager.add_rows(excel_name="apriori", sheet_name=str(minsup), base_address="out\\", datas=large_items[-2])
 
         print("finish minsup =", minsup)

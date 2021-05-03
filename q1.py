@@ -27,6 +27,6 @@ def chart_item_frequency(base_dir, file_name, x, y, top):
 if __name__ == '__main__':
     top_frequency = [10, 25, 35, 'all']
     print("Q1")
-    x, y = read_data('information.sqlit3')
+    x, y = read_data('information.sqlite3')
     for top in top_frequency:
         chart_item_frequency('.\\out\\', 'q1_item_frequency_', x, y, top)

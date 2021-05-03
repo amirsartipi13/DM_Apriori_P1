@@ -38,7 +38,7 @@ class SqlManager:
          
 if __name__ == '__main__':
     start_time=time.time()
-    sql_manager = SqlManager("information.sqlit3")
+    sql_manager = SqlManager("information.sqlite3")
     sql_manager.create_database()
     sql_manager.excel_to_sql(fille_address=".\\Project1-groceries.csv")
     print("TIME=",time.time()-start_time)
