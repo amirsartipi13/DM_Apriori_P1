@@ -15,14 +15,33 @@ def read_frequents(excel_name , sheet_name , base):
         freq.append(temp)
     return freq
 
+def findsubsets(s, n):
+    return list(map(set, itertools.combinations(s, n)))
+
+def find_all_subsets(s):
+    result = []
+    for n in range(1 , len(s) ):
+        result.extend(findsubsets(s,n))
+    return result
+
+def has_subscription(s1,s2):
+    for i in s1:
+        if i in s2:
+            return True
+    for i in s2:
+        if i in s1:
+            return True
+        
+    return False
 # make sub set
 def make_subset(frequents):
     possiable_rules = []
     for freq in frequents:
-        for k in range(2,len(freq)):
-            l1 = list(map(set, itertools.combinations(freq, k)))
-            for i in range(len(l1)):
-                possiable_rules.append((list(l1[i]), [x for x in freq if x not in list(l1[i])]))
+        subsets = find_all_subsets(freq)
+        for subset1 in subsets:
+            for subset2 in subsets:
+                if not has_subscription(subset1,subset2):
+                    possiable_rules.append((list(subset1), list(subset2)))
     return possiable_rules
 
 def prepare_data(sql_file, rules):
@@ -64,14 +83,15 @@ def generate_strongs(data, rules_p, tr_number, minconf):
             rights.append(right_str)
             lefts.append(left_str)
             rules.append(left_str + '---->' + right_str)
-        if float(both/right_c) > minconf and both/right_c !=1:
-            conf = float(both/right_c)
-            lift = (conf * tr_number)/left_c
-            confs.append(conf)
-            lifts.append(lift)
-            rights.append(left_str)
-            lefts.append(right_str)
-            rules.append(right_str + '---->' + left_str)
+        
+        # if float(both/right_c) > minconf and both/right_c !=1:
+        #     conf = float(both/right_c)
+        #     lift = (conf * tr_number)/left_c
+        #     confs.append(conf)
+        #     lifts.append(lift)
+        #     rights.append(left_str)
+        #     lefts.append(right_str)
+        #     rules.append(right_str + '---->' + left_str)
     # sort by lift
     data = list(zip(lefts, rights, lifts,rules, confs))
     return sorted(data, key=lambda x:x[2], reverse=True)
