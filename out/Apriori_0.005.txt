@@ -1,0 +1,19 @@
+butter	other vegetables	root vegetables	whole milk
+butter	other vegetables	whipped/sour cream	whole milk
+butter	other vegetables	whole milk	yogurt
+citrus fruit	other vegetables	root vegetables	whole milk
+cream	cream cheese 	other vegetables	whole milk
+cream	cream cheese 	other vegetables	yogurt
+cream	cream cheese 	whole milk	yogurt
+fruit/vegetable juice	other vegetables	whole milk	yogurt
+ham	hamburger meat	other vegetables	whole milk
+other vegetables	pip fruit	root vegetables	whole milk
+other vegetables	pip fruit	whole milk	yogurt
+other vegetables	rolls/buns	root vegetables	whole milk
+other vegetables	rolls/buns	whole milk	yogurt
+other vegetables	root vegetables	tropical fruit	whole milk
+other vegetables	root vegetables	whipped/sour cream	whole milk
+other vegetables	root vegetables	whole milk	yogurt
+other vegetables	tropical fruit	whole milk	yogurt
+other vegetables	whipped/sour cream	whole milk	yogurt
+root vegetables	tropical fruit	whole milk	yogurt
